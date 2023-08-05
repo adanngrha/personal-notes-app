@@ -1,7 +1,7 @@
 import React from "react";
 import NoteItem from "./NoteItem.jsx";
 
-const NoteList = ({ notes, onDelete, onArchive }) => {
+const NoteList = ({ notes }) => {
 
     if (notes.length === 0) {
         return (
@@ -16,8 +16,6 @@ const NoteList = ({ notes, onDelete, onArchive }) => {
                      <NoteItem
                             key={note.id}
                             id={note.id}
-                            onDelete={onDelete}
-                            onArchive={onArchive}
                             {...note}
                      />
                 ))

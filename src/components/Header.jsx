@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchBar from "./SearchBar.jsx";
+import Navigation from "./Navigation.jsx";
 
-const Header = ({ onSearch }) => {
+const Header = () => {
     return (
-        <header className="note-app__header">
+        <header>
             <h1>Aplikasi Catatan</h1>
-            <SearchBar onSearch={onSearch} />
+            <Navigation />
         </header>
     );
 }

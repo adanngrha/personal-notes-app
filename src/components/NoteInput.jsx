@@ -29,41 +29,33 @@ class NoteInput extends React.Component {
     onBodyChangeEventHandler(event) {
         this.setState(() => {
             return {
-                body: event.target.value,
+                body: event.target.innerHTML,
             }
         });
     }
 
     onSubmitEventHandler(event) {
         event.preventDefault();
-        if (this.state.title === '' || this.state.body === '') {
-            alert('Judul dan isi catatan tidak boleh kosong!');
-            return;
-        }
         this.props.addNote(this.state);
-        this.setState(() => {
-            return {
-                title: '',
-                body: '',
-                max_char: 50,
-            }
-        });
     }
     render() {
         return (
-            <div className="note-input">
-                <h2>Tambah Catatan</h2>
-                <p className="note-input__title__char-limit">Sisa Karakter: {this.state.max_char}</p>
-                <form onSubmit={this.onSubmitEventHandler}>
-                    <input className="note-input__title" type="text" maxLength={50}
-                           value={this.state.title} onChange={this.onTitleChangeEventHandler}
-                           placeholder="Ini adalah judul..."/>
-                    <textarea className="note-input__body"
-                              value={this.state.body} onChange={this.onBodyChangeEventHandler}
-                              placeholder="Tuliskan catatanmu disini..."/>
-                    <button>Tambah</button>
-                </form>
-            </div>
+            <section className="add-new-page">
+                    <form onSubmit={this.onSubmitEventHandler}>
+                        <div className="add-new-page__input">
+                            <input className="add-new-page__input__title" type="text" maxLength={50}
+                                   value={this.state.title} onChange={this.onTitleChangeEventHandler}
+                                   placeholder="Ini adalah judul..."/>
+                            <div className="add-new-page__input__body"
+                                 onChange={this.onBodyChangeEventHandler}
+                                 data-placeholder="Tuliskan catatanmu disini..." contentEditable="true">
+                            </div>
+                        </div>
+                        <div className="add-new-page__action">
+                            <button className="action">+</button>
+                        </div>
+                    </form>
+            </section>
         );
     }
 }
