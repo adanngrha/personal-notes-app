@@ -1,6 +1,7 @@
 import React from "react";
 import {showFormattedDate} from "../utils/index.js";
 import parser from "html-react-parser";
+import PropTypes from "prop-types";
 
 const NoteDetailBody = ({ title, createdAt, body }) => {
     return (
@@ -10,6 +11,12 @@ const NoteDetailBody = ({ title, createdAt, body }) => {
             <div className="detail-page__body">{parser(body)}</div>
         </>
     );
+}
+
+NoteDetailBody.propTypes = {
+    title: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired
 }
 
 export default NoteDetailBody;

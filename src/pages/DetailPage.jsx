@@ -2,6 +2,7 @@ import React from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {archiveNote, unarchiveNote, deleteNote, getNote} from "../utils/local-data.js";
 import NoteDetail from "../components/NoteDetail.jsx";
+import PropTypes from "prop-types";
 
 class DetailPage extends React.Component {
     constructor(props) {
@@ -51,6 +52,11 @@ const DetailPageWrapper = () => {
     const navigate = useNavigate();
 
     return <DetailPage id={id} navigate={navigate}/>
+}
+
+DetailPage.propTypes = {
+    id: PropTypes.string.isRequired,
+    navigate: PropTypes.func.isRequired,
 }
 
 export default DetailPageWrapper;

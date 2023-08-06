@@ -4,7 +4,7 @@ import NoteList from "../components/NoteList.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import {Link, useSearchParams} from "react-router-dom";
 import { MdNoteAdd } from "react-icons/md";
-
+import PropTypes from "prop-types";
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -56,6 +56,11 @@ const HomePageWrapper = () => {
     }
 
     return <HomePage defaultKeyword={keyword} keywordChange={changeSearchParams} />
+}
+
+HomePage.propTypes = {
+    defaultKeyword: PropTypes.string,
+    keywordChange: PropTypes.func.isRequired,
 }
 
 export default HomePageWrapper;
