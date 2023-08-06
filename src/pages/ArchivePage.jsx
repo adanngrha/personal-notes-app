@@ -33,11 +33,11 @@ class ArchivePage extends React.Component {
         });
 
         return (
-            <main className="note-app__body">
-                <h4 className="section-heading">Catatan Arsip</h4>
+            <section className="archives-page">
+                <h2>Catatan Arsip</h2>
                 <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
                 <NoteList notes={notes} onDelete={this.onDeleteHandler} onArchive={this.onArchiveHandler}/>
-            </main>
+            </section>
         );
     }
 }

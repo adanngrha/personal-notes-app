@@ -36,16 +36,14 @@ class HomePage extends React.Component {
         });
 
         return (
-            <main>
-                <section className="homepage">
-                    <h2 className="section-heading">Catatan Aktif</h2>
-                    <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
-                    <NoteList notes={notes}/>
-                    <div className="homepage__action">
-                        <Link to="notes/add" className="action"><MdNoteAdd /></Link>
-                    </div>
-                </section>
-            </main>
+            <section className="homepage">
+                <h2>Catatan Aktif</h2>
+                <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
+                <NoteList notes={notes}/>
+                <div className="homepage__action">
+                    <Link to="notes/new" className="action"><MdNoteAdd /></Link>
+                </div>
+            </section>
         );
     }
 }

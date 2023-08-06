@@ -1,5 +1,6 @@
 import React from "react";
 import { MdSave } from "react-icons/md";
+import PropTypes from "prop-types";
 
 class NoteInput extends React.Component {
     constructor(props) {
@@ -65,6 +66,10 @@ class NoteInput extends React.Component {
             </section>
         );
     }
+}
+
+NoteInput.propTypes = {
+    addNote: PropTypes.func.isRequired
 }
 
 export default NoteInput;

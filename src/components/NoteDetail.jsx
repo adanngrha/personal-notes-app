@@ -1,26 +1,37 @@
 import React from "react";
-import {showFormattedDate} from "../utils/index.js";
-import parser from "html-react-parser";
-import { MdDeleteForever, MdArchive, MdUnarchive } from "react-icons/md";
+import DeleteButton from "./buttons/DeleteButton.jsx";
+import UnArchiveButton from "./buttons/UnarchiveButton.jsx";
+import ArchiveButton from "./buttons/ArchiveButton.jsx";
+import PropTypes from "prop-types";
+import NoteDetailBody from "./NoteDetailBody.jsx";
 
 const NoteDetail = ({ id, title, createdAt, body, archived, onDelete, onArchive, onUnarchive }) => {
     return (
         <>
-            <h1 className="detail-page__title">{title}</h1>
-            <p className="detail-page__createdAt">{showFormattedDate(createdAt)}</p>
-            <div className="detail-page__body">{parser(body)}</div>
+            <NoteDetailBody title={title} createdAt={createdAt} body={body}/>
             <div className="detail-page__action">
-                <button className="action" onClick={() => onDelete(id) }><MdDeleteForever /></button>
                 {
                     archived ? (
-                        <button className="action" onClick={() => onUnarchive(id) }><MdUnarchive /></button>
+                        <UnArchiveButton id={id} onUnarchive={onUnarchive} />
                     ) : (
-                        <button className="action" onClick={() => onArchive(id) }><MdArchive /></button>
+                        <ArchiveButton id={id} onArchive={onArchive} />
                     )
                 }
+                <DeleteButton id={id} onDelete={onDelete} />
             </div>
         </>
     );
+}
+
+NoteDetail.propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    archived: PropTypes.bool.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onArchive: PropTypes.func.isRequired,
+    onUnarchive: PropTypes.func.isRequired
 }
 
 export default NoteDetail;

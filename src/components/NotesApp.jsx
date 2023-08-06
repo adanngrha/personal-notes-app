@@ -14,8 +14,8 @@ const NotesApp = () => {
             <main>
                 <Routes>
                     <Route path='/' element={<HomePage />} />
-                    <Route path='/archive' element={<ArchivePage />} />
-                    <Route path='/notes/add' element={<AddPage />} />
+                    <Route path='/archives' element={<ArchivePage />} />
+                    <Route path='/notes/new' element={<AddPage />} />
                     <Route path='/notes/:id' element={<DetailPage />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

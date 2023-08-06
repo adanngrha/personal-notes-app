@@ -2,10 +2,10 @@ import React from "react";
 
 const NotFound = () => {
     return (
-        <div>
+        <section className="not-found">
             <h1>404</h1>
             <p>Halaman tidak ditemukan.</p>
-        </div>
+        </section>
     )
 }
 
