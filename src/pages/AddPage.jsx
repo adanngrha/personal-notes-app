@@ -7,6 +7,7 @@ const AddPage = () => {
     const navigate = useNavigate();
 
     const onAddNoteHandler = (note) => {
+        console.log(note);
         addNote(note);
         navigate('/');
     }

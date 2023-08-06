@@ -2,7 +2,8 @@ import React from "react";
 import { getActiveNotes } from "../utils/local-data.js";
 import NoteList from "../components/NoteList.jsx";
 import SearchBar from "../components/SearchBar.jsx";
-import { useSearchParams } from "react-router-dom";
+import {Link, useSearchParams} from "react-router-dom";
+import { MdNoteAdd } from "react-icons/md";
 
 
 class HomePage extends React.Component {
@@ -35,10 +36,15 @@ class HomePage extends React.Component {
         });
 
         return (
-            <main className="note-app__body">
-                <h4 className="section-heading">Catatan Aktif</h4>
-                <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
-                <NoteList notes={notes}/>
+            <main>
+                <section className="homepage">
+                    <h2 className="section-heading">Catatan Aktif</h2>
+                    <SearchBar keyword={this.state.keyword} keywordChange={this.onKeywordChangeHandler}/>
+                    <NoteList notes={notes}/>
+                    <div className="homepage__action">
+                        <Link to="notes/add" className="action"><MdNoteAdd /></Link>
+                    </div>
+                </section>
             </main>
         );
     }

@@ -1,4 +1,5 @@
 import React from "react";
+import { MdSave } from "react-icons/md";
 
 class NoteInput extends React.Component {
     constructor(props) {
@@ -36,7 +37,13 @@ class NoteInput extends React.Component {
 
     onSubmitEventHandler(event) {
         event.preventDefault();
-        this.props.addNote(this.state);
+        this.props.addNote({
+            id: `notes-${crypto.randomUUID()}`,
+            title: this.state.title,
+            body: this.state.body,
+            createdAt: new Date(),
+            archived: false,
+        });
     }
     render() {
         return (
@@ -47,12 +54,12 @@ class NoteInput extends React.Component {
                                    value={this.state.title} onChange={this.onTitleChangeEventHandler}
                                    placeholder="Ini adalah judul..."/>
                             <div className="add-new-page__input__body"
-                                 onChange={this.onBodyChangeEventHandler}
-                                 data-placeholder="Tuliskan catatanmu disini..." contentEditable="true">
+                                 onInput={this.onBodyChangeEventHandler}
+                                 data-placeholder="Tuliskan catatanmu disini..." contentEditable>
                             </div>
                         </div>
                         <div className="add-new-page__action">
-                            <button className="action">+</button>
+                            <button className="action"><MdSave /></button>
                         </div>
                     </form>
             </section>

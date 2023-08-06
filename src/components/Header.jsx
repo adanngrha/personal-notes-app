@@ -1,10 +1,13 @@
 import React from 'react';
 import Navigation from "./Navigation.jsx";
+import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
         <header>
-            <h1>Aplikasi Catatan</h1>
+            <h1>
+                <Link to='/'>Aplikasi Catatan</Link>
+            </h1>
             <Navigation />
         </header>
     );

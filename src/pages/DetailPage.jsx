@@ -4,7 +4,6 @@ import {archiveNote, unarchiveNote, deleteNote, getNote} from "../utils/local-da
 import NoteDetail from "../components/NoteDetail.jsx";
 
 class DetailPage extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -19,17 +18,17 @@ class DetailPage extends React.Component {
 
     onArchiveHandler = (id) => {
         archiveNote(id);
-        this.props.redirect;
+        this.props.navigate('/');
     }
 
     onUnarchiveHandler = (id) => {
         unarchiveNote(id);
-        this.props.redirect;
+        this.props.navigate('/');
     }
 
     onDeleteHandler = (id) => {
         deleteNote(id);
-        this.props.redirect;
+        this.props.navigate('/');
     }
 
     render() {
@@ -50,8 +49,8 @@ class DetailPage extends React.Component {
 const DetailPageWrapper = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const redirect = () => navigate('/');
-    return <DetailPage id={id} navigate={redirect}/>
+
+    return <DetailPage id={id} navigate={navigate}/>
 }
 
 export default DetailPageWrapper;

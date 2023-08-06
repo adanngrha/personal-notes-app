@@ -10,7 +10,7 @@ const NoteList = ({ notes }) => {
     }
 
     return (
-       <div className="notes-list">
+       <section className="notes-list">
            {
                notes.map((note) => (
                      <NoteItem
@@ -20,7 +20,7 @@ const NoteList = ({ notes }) => {
                      />
                 ))
            }
-       </div>
+       </section>
     );
 }
 
