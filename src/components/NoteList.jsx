@@ -3,7 +3,6 @@ import NoteItem from "./NoteItem.jsx";
 import PropTypes from "prop-types";
 
 const NoteList = ({ notes }) => {
-
     if (notes.length === 0) {
         return (
             <section className="notes-list-empty">

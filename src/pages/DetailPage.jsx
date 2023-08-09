@@ -1,62 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import {archiveNote, unarchiveNote, deleteNote, getNote} from "../utils/local-data.js";
 import NoteDetail from "../components/NoteDetail.jsx";
-import PropTypes from "prop-types";
 
-class DetailPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            note: getNote(props.id)
-        };
-
-        this.onDeleteHandler = this.onDeleteHandler.bind(this);
-        this.onArchiveHandler = this.onArchiveHandler.bind(this);
-        this.onUnarchiveHandler = this.onUnarchiveHandler.bind(this);
-    }
-
-    onArchiveHandler = (id) => {
-        archiveNote(id);
-        this.props.navigate('/');
-    }
-
-    onUnarchiveHandler = (id) => {
-        unarchiveNote(id);
-        this.props.navigate('/');
-    }
-
-    onDeleteHandler = (id) => {
-        deleteNote(id);
-        this.props.navigate('/');
-    }
-
-    render() {
-        if (this.state.note === null) {
-            return <p>Note not found!</p>;
-        }
-
-        return (
-            <section className="detail-page">
-                <NoteDetail {...this.state.note} onDelete={this.onDeleteHandler}
-                            onArchive={this.onArchiveHandler} onUnarchive={this.onUnarchiveHandler}
-                />
-            </section>
-        );
-    }
-}
-
-const DetailPageWrapper = () => {
+const DetailPage = () => {
     const { id } = useParams();
+    const [note, setNote] = useState(() => getNote(id));
     const navigate = useNavigate();
 
-    return <DetailPage id={id} navigate={navigate}/>
+    const onArchiveHandler = (id) => {
+        archiveNote(id);
+        navigate('/');
+    }
+
+    const onUnarchiveHandler = (id) => {
+        unarchiveNote(id);
+        navigate('/');
+    }
+
+    const onDeleteHandler = (id) => {
+        deleteNote(id);
+        navigate('/');
+    }
+
+    if (note === null) {
+        return <p>Note not found!</p>;
+    }
+
+    return (
+        <section className="detail-page">
+            <NoteDetail {...note} onDelete={onDeleteHandler}
+                        onArchive={onArchiveHandler} onUnarchive={onUnarchiveHandler}
+            />
+        </section>
+    );
 }
 
-DetailPage.propTypes = {
-    id: PropTypes.string.isRequired,
-    navigate: PropTypes.func.isRequired,
-}
-
-export default DetailPageWrapper;
+export default DetailPage;

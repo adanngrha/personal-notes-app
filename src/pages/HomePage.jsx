@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getActiveNotes } from "../utils/local-data.js";
 import NoteList from "../components/NoteList.jsx";
 import SearchBar from "../components/SearchBar.jsx";
@@ -7,12 +7,12 @@ import { MdNoteAdd } from "react-icons/md";
 
 const HomePage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [notes, setNotes] = React.useState([]);
-    const [keyword, setKeyword] = React.useState(() => {
+    const [notes, setNotes] = useState([]);
+    const [keyword, setKeyword] = useState(() => {
         return searchParams.get('keyword') || ''
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         setNotes(getActiveNotes());
     }, []);
 

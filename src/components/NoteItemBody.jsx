@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import parser from "html-react-parser";
 
-function NoteItemBody({ id, title, createdAt, body }) {
+const NoteItemBody = ({ id, title, createdAt, body }) => {
     return (
         <div>
             <h3 className="note-item__title">
