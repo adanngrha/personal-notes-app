@@ -1,22 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import { register } from "../utils/network-data.js";
+import RegisterInput from "../components/RegisterInput.jsx";
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
+    const onRegister = async (user) => {
+        const { error } = await register(user);
+        if (!error) {
+            navigate('/');
+        }
+    }
+
     return (
         <section className="input-register">
             <h2>Fill the form to register account.</h2>
             <br /><br />
-            <form>
-                <label>Name</label>
-                <input type="text"/>
-                <label>Email</label>
-                <input type="text"/>
-                <label>Password</label>
-                <input type="text"/>
-                <label>Confirm Password</label>
-                <input type="text"/>
-                <button>Register</button>
-            </form>
+            <RegisterInput />
             <br /><br />
             <p>Already have an account? <Link to="/login">Login here</Link></p>
         </section>

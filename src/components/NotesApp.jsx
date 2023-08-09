@@ -28,15 +28,15 @@ const NotesApp = () => {
             });
         },
     });
-    const [themeContext, setTheme] = useState({
+    const [themeContext, setThemeContext] = useState({
         theme: localStorage.getItem('theme') || 'dark',
         toggleTheme: () => {
-            setTheme((prevState) => {
+            setThemeContext((prevState) => {
                 const newTheme = prevState.theme === 'dark' ? 'light' : 'dark';
                 localStorage.setItem('theme', newTheme);
                 return {
                     ...prevState,
-                    locale: newTheme,
+                    theme: newTheme,
                 };
             });
         },
@@ -74,7 +74,7 @@ const NotesApp = () => {
                         <Header authedUser={authedUser} />
                         <main>
                             <Routes>
-                                <Route path='/*' element={<LoginPage />} />
+                                <Route path='/*' element={<LoginPage loginSuccess={onLoginSuccess}/>} />
                                 <Route path='/register' element={<RegisterPage />} />
                             </Routes>
                         </main>
