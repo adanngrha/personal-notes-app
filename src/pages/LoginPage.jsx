@@ -14,7 +14,7 @@ const LoginPage = () => {
                 <button>Login</button>
             </form>
             <br /><br />
-            <p>Don't have an account? <Link to="/login">Register here</Link></p>
+            <p>Don't have an account? <Link to="/register">Register here</Link></p>
         </section>
     )
 }

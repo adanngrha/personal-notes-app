@@ -1,14 +1,17 @@
 import React from 'react';
 import Navigation from "./Navigation.jsx";
 import {Link} from "react-router-dom";
+import LocaleContext from "../contexts/LocaleContext.js";
 
-const Header = () => {
+const Header = ({ authedUser }) => {
+    const { locale } = React.useContext(LocaleContext);
+
     return (
         <header>
             <h1>
-                <Link to='/'>Aplikasi Catatan</Link>
+                <Link to='/'>{locale === 'id' ? 'Aplikasi Catatan' : 'Notes App'}</Link>
             </h1>
-            <Navigation />
+            <Navigation authedUser={authedUser} />
         </header>
     );
 }
