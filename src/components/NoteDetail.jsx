@@ -1,23 +1,23 @@
-import React from "react";
-import DeleteButton from "./buttons/DeleteButton.jsx";
-import UnArchiveButton from "./buttons/UnarchiveButton.jsx";
-import ArchiveButton from "./buttons/ArchiveButton.jsx";
-import PropTypes from "prop-types";
-import NoteDetailBody from "./NoteDetailBody.jsx";
+import React from 'react';
+import DeleteButton from './buttons/DeleteButton.jsx';
+import UnArchiveButton from './buttons/UnarchiveButton.jsx';
+import ArchiveButton from './buttons/ArchiveButton.jsx';
+import PropTypes from 'prop-types';
+import NoteDetailBody from './NoteDetailBody.jsx';
 
-const NoteDetail = ({ id, title, createdAt, body, archived, onDelete, onArchive, onUnarchive }) => {
+const NoteDetail = ({id, title, createdAt, body, archived, onDelete, onArchive, onUnarchive}) => {
     return (
         <>
             <NoteDetailBody title={title} createdAt={createdAt} body={body}/>
-            <div className="detail-page__action">
+            <div className='detail-page__action'>
                 {
                     archived ? (
-                        <UnArchiveButton id={id} onUnarchive={onUnarchive} />
+                        <UnArchiveButton id={id} onUnarchive={onUnarchive}/>
                     ) : (
-                        <ArchiveButton id={id} onArchive={onArchive} />
+                        <ArchiveButton id={id} onArchive={onArchive}/>
                     )
                 }
-                <DeleteButton id={id} onDelete={onDelete} />
+                <DeleteButton id={id} onDelete={onDelete}/>
             </div>
         </>
     );

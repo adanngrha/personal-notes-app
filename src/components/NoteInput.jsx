@@ -1,71 +1,52 @@
-import React from "react";
-import { MdSave } from "react-icons/md";
-import PropTypes from "prop-types";
+import React, {useState} from 'react';
+import {MdSave} from 'react-icons/md';
+import PropTypes from 'prop-types';
+import LocaleContext from '../contexts/LocaleContext.js';
 
-class NoteInput extends React.Component {
-    constructor(props) {
-        super(props);
+const NoteInput = (props) => {
+    const [maxChar, setMaxChar] = useState(50);
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const {locale} = React.useContext(LocaleContext);
 
-        this.state = {
-            max_char: 50,
-            title: '',
-            body: '',
-        }
-
-        this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
-        this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
-        this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
-    }
-
-    onTitleChangeEventHandler(event) {
+    const onTitleChangeEventHandler = (event) => {
         if (event.target.value.length <= 50) {
-            this.setState(() => {
-                return {
-                    title: event.target.value,
-                    max_char: 50 - event.target.value.length
-                }
-            });
+            setTitle(event.target.value);
+            setMaxChar(50 - event.target.value.length);
         }
-    }
+    };
 
-    onBodyChangeEventHandler(event) {
-        this.setState(() => {
-            return {
-                body: event.target.innerHTML,
-            }
-        });
-    }
+    const onBodyChangeEventHandler = (event) => {
+        setBody(event.target.innerHTML);
+    };
 
-    onSubmitEventHandler(event) {
+    const onSubmitEventHandler = (event) => {
         event.preventDefault();
-        this.props.addNote({
-            id: `notes-${crypto.randomUUID()}`,
-            title: this.state.title,
-            body: this.state.body,
-            createdAt: new Date(),
-            archived: false,
+        props.addNote({
+            title: title,
+            body: body,
         });
-    }
-    render() {
-        return (
-            <section className="add-new-page">
-                    <form onSubmit={this.onSubmitEventHandler}>
-                        <div className="add-new-page__input">
-                            <input className="add-new-page__input__title" type="text" maxLength={50}
-                                   value={this.state.title} onChange={this.onTitleChangeEventHandler}
-                                   placeholder="Ini adalah judul..."/>
-                            <div className="add-new-page__input__body"
-                                 onInput={this.onBodyChangeEventHandler}
-                                 data-placeholder="Tuliskan catatanmu disini..." contentEditable>
-                            </div>
-                        </div>
-                        <div className="add-new-page__action">
-                            <button className="action"><MdSave /></button>
-                        </div>
-                    </form>
-            </section>
-        );
-    }
+    };
+
+    return (
+        <section className='add-new-page'>
+            <form onSubmit={onSubmitEventHandler}>
+                <div className='add-new-page__input'>
+                    <input className='add-new-page__input__title' type='text' maxLength={50}
+                           value={title} onChange={onTitleChangeEventHandler}
+                           placeholder={locale === 'id' ? 'Ini adalah judul...' : 'This is title...'}/>
+                    <div className='add-new-page__input__body'
+                         onInput={onBodyChangeEventHandler}
+                         data-placeholder={locale === 'id' ? 'Tuliskan catatanmu disini...' : 'Write your note here...'}
+                         contentEditable>
+                    </div>
+                </div>
+                <div className='add-new-page__action'>
+                    <button className='action'><MdSave/></button>
+                </div>
+            </form>
+        </section>
+    );
 }
 
 NoteInput.propTypes = {

@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
-const RegisterInput = ({ register }) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+const RegisterInput = ({register}) => {
+    const useInput = (defaultValue = '') => {
+        const [value, setValue] = useState(defaultValue);
 
-    const onNameChangeHandler = (event) => {
-        setName(event.target.value);
+        const onValueChangeHandler = (event) => {
+            setValue(event.target.value);
+        };
+
+        return [value, onValueChangeHandler];
     }
 
-    const onEmailChangeHandler = (event) => {
-        setEmail(event.target.value);
-    }
-
-    const onPasswordChangeHandler = (event) => {
-        setPassword(event.target.value)
-    }
-
-    const onPasswordConfirmationChangeHandler = (event) => {
-        setPasswordConfirmation(event.target.value);
-    }
+    const [name, onNameChange] = useInput('');
+    const [email, onEmailChange] = useInput('');
+    const [password, onPasswordChange] = useInput('');
+    const [passwordConfirmation, onPasswordConfirmationChange] = useInput('');
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        if (password !== passwordConfirmation) {
+            alert('Password and password confirmation must be same!');
+            return;
+        }
 
         register({
             name: name,
@@ -36,16 +34,22 @@ const RegisterInput = ({ register }) => {
     return (
         <form onSubmit={onSubmitHandler} className='register-input'>
             <label>Name</label>
-            <input type="text" placeholder="Nama" value={name} onChange={onNameChangeHandler} />
+            <input type='text' placeholder='Nama' value={name} onChange={onNameChange}/>
             <label>Email</label>
-            <input type="email" placeholder="Email" value={email} onChange={onEmailChangeHandler} />
+            <input type='email' placeholder='Email' value={email} onChange={onEmailChange}/>
             <label>Password</label>
-            <input type="password" placeholder="Password" autoComplete='current-password' value={password} onChange={onPasswordChangeHandler} />
+            <input type='password' placeholder='Password' autoComplete='current-password' value={password}
+                   onChange={onPasswordChange}/>
             <label>Confirm Password</label>
-            <input type="password" placeholder="Password Confirmation" autoComplete='current-password' value={passwordConfirmation} onChange={onPasswordConfirmationChangeHandler} />
+            <input type='password' placeholder='Password Confirmation' autoComplete='current-password'
+                   value={passwordConfirmation} onChange={onPasswordConfirmationChange}/>
             <button>Register</button>
         </form>
     )
+}
+
+RegisterInput.propTypes = {
+    register: PropTypes.func.isRequired,
 }
 
 export default RegisterInput;

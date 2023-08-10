@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
-const LoginInput = ({ login }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const LoginInput = ({login}) => {
+    const useInput = (defaultValue = '') => {
+        const [value, setValue] = useState(defaultValue);
 
-    const onEmailChangeHandler = (event) => {
-        setEmail(event.target.value);
+        const onValueChangeHandler = (event) => {
+            setValue(event.target.value);
+        };
+
+        return [value, onValueChangeHandler];
     }
 
-    const onPasswordChangeHandler = (event) => {
-        setPassword(event.target.value)
-    }
+    const [email, onEmailChange] = useInput('');
+    const [password, onPasswordChange] = useInput('');
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
@@ -25,9 +27,9 @@ const LoginInput = ({ login }) => {
     return (
         <form onSubmit={onSubmitHandler}>
             <label>Email</label>
-            <input type='email' placeholder='Email' value={email} onChange={onEmailChangeHandler}/>
+            <input type='email' placeholder='Email' value={email} onChange={onEmailChange}/>
             <label>Password</label>
-            <input type='password' placeholder='Password' value={password} onChange={onPasswordChangeHandler}/>
+            <input type='password' placeholder='Password' value={password} onChange={onPasswordChange}/>
             <button>Login</button>
         </form>
     );

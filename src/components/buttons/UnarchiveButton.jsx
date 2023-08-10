@@ -1,10 +1,10 @@
 import React from 'react';
-import { MdUnarchive } from "react-icons/md";
-import PropTypes from "prop-types";
+import {MdUnarchive} from 'react-icons/md';
+import PropTypes from 'prop-types';
 
-const UnArchiveButton = ({ id, onUnarchive }) => {
+const UnArchiveButton = ({id, onUnarchive}) => {
     return (
-        <button className="action" onClick={() => onUnarchive(id) }><MdUnarchive /></button>
+        <button className='action' onClick={() => onUnarchive(id)}><MdUnarchive/></button>
     );
 }
 

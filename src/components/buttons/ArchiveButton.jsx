@@ -1,10 +1,10 @@
 import React from 'react';
-import { MdArchive } from "react-icons/md";
-import PropTypes from "prop-types";
+import {MdArchive} from 'react-icons/md';
+import PropTypes from 'prop-types';
 
-const ArchiveButton = ({ id, onArchive }) => {
+const ArchiveButton = ({id, onArchive}) => {
     return (
-        <button className="action" onClick={() => onArchive(id) }><MdArchive /></button>
+        <button className='action' onClick={() => onArchive(id)}><MdArchive/></button>
     );
 }
 

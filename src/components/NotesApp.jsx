@@ -1,16 +1,16 @@
-import React, {createContext, useState, useMemo, useEffect} from "react";
-import Header from "./Header.jsx";
-import HomePage from "../pages/HomePage.jsx";
-import AddPage from "../pages/AddPage.jsx";
-import ArchivePage from "../pages/ArchivePage.jsx";
-import { Routes, Route } from "react-router-dom";
-import DetailPage from "../pages/DetailPage.jsx";
-import NotFound from "./NotFound.jsx";
-import LoginPage from "../pages/LoginPage.jsx";
-import RegisterPage from "../pages/RegisterPage.jsx";
-import { LocaleProvider } from "../contexts/LocaleContext.js";
-import { ThemeProvider } from "../contexts/ThemeContext.js";
-import { getUserLogged, putAccessToken } from "../utils/network-data.js";
+import React, {useEffect, useState} from 'react';
+import Header from './Header.jsx';
+import HomePage from '../pages/HomePage.jsx';
+import AddPage from '../pages/AddPage.jsx';
+import ArchivePage from '../pages/ArchivePage.jsx';
+import {Route, Routes} from 'react-router-dom';
+import DetailPage from '../pages/DetailPage.jsx';
+import NotFound from './NotFound.jsx';
+import LoginPage from '../pages/LoginPage.jsx';
+import RegisterPage from '../pages/RegisterPage.jsx';
+import {LocaleProvider} from '../contexts/LocaleContext.js';
+import {ThemeProvider} from '../contexts/ThemeContext.js';
+import {getUserLogged, putAccessToken} from '../utils/network-data.js';
 
 const NotesApp = () => {
     const [authedUser, setAuthedUser] = useState(null);
@@ -42,9 +42,9 @@ const NotesApp = () => {
         },
     });
 
-    const onLoginSuccess = async ({ accessToken }) => {
+    const onLoginSuccess = async ({accessToken}) => {
         putAccessToken(accessToken);
-        const { data } = await getUserLogged();
+        const {data} = await getUserLogged();
         setAuthedUser(data);
     }
 
@@ -54,48 +54,44 @@ const NotesApp = () => {
     }
 
     useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await getUserLogged();
+        getUserLogged().then(({data}) => {
             setAuthedUser(data);
-            setInitializing(false);
-        }
-        fetchData();
+        })
+        setInitializing(false);
+        document.documentElement.setAttribute('data-theme', themeContext.theme);
     }, []);
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', themeContext.theme);
+    }, [themeContext]);
 
     if (initializing) {
         return null;
-    }
-
-    if (authedUser === null) {
-        return (
-            <LocaleProvider value={localeContext}>
-                <ThemeProvider value={themeContext}>
-                    <div className='app-container'>
-                        <Header authedUser={authedUser} />
-                        <main>
-                            <Routes>
-                                <Route path='/*' element={<LoginPage loginSuccess={onLoginSuccess}/>} />
-                                <Route path='/register' element={<RegisterPage />} />
-                            </Routes>
-                        </main>
-                    </div>
-                </ThemeProvider>
-            </LocaleProvider>
-        )
     }
 
     return (
         <LocaleProvider value={localeContext}>
             <ThemeProvider value={themeContext}>
                 <div className='app-container'>
-                    <Header authedUser={authedUser}/>
+                    <Header authedUser={authedUser} onLogout={onLogout}/>
                     <main>
                         <Routes>
-                            <Route path='/' element={<HomePage />} />
-                            <Route path='/archives' element={<ArchivePage />} />
-                            <Route path='/notes/new' element={<AddPage />} />
-                            <Route path='/notes/:id' element={<DetailPage />} />
-                            <Route path="*" element={<NotFound />} />
+                            {
+                                !authedUser ? (
+                                    <>
+                                        <Route path='/*' element={<LoginPage loginSuccess={onLoginSuccess}/>}/>
+                                        <Route path='/register' element={<RegisterPage/>}/>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Route path='/' element={<HomePage/>}/>
+                                        <Route path='/archives' element={<ArchivePage/>}/>
+                                        <Route path='/notes/new' element={<AddPage/>}/>
+                                        <Route path='/notes/:id' element={<DetailPage/>}/>
+                                        <Route path='*' element={<NotFound/>}/>
+                                    </>
+                                )
+                            }
                         </Routes>
                     </main>
                 </div>
